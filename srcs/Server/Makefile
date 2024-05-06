@@ -1,0 +1,29 @@
+CXX = c++
+
+HEAD = includes
+
+SERVER_SRCS_DIR = srcs
+
+SERVER_SRCS = ${SERVER_SRCS_DIR}/main.cpp
+SERVER_OBJS = $(SERVER_SRCS:.cpp=.o)
+SERVER_CFLAGS = -Wall -Wextra -Werror -std=c++11 -I${HEAD}
+
+SERVER_NAME = dealerGame_server
+
+.PHONY: all clean fclean re
+
+all: $(SERVER_NAME)
+
+%.o: %.cpp
+	$(CXX) $(SERVER_CFLAGS) -c $< -o $@
+
+$(SERVER_NAME): $(SERVER_OBJS)
+	$(CXX) $(SERVER_OBJS) -o $(SERVER_NAME)
+
+clean:
+	rm -f $(SERVER_OBJS)
+
+fclean: clean
+	rm -f $(SERVER_NAME)
+
+re: fclean all
